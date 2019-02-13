@@ -1,0 +1,90 @@
+enum AddressKind {
+  Shipping
+  Billing
+  Both
+  Other
+  Home
+}
+
+enum PhoneKind {
+  Home
+  Cell
+  Office
+  Other
+  Mobile
+}
+
+type Address {
+  id: ID! @unique
+  type: AddressKind!
+  street1: String!
+  street2: String
+  city: String!
+  state: String!
+  zip: String!
+  longitude: String
+  latitude: String
+
+  isActive: Boolean! @default(value: "true")
+
+  users: [User!]!
+}
+
+type Phone {
+  id: ID! @unique
+  type: PhoneKind!
+  number: String!
+  ext: String
+
+  isActive: Boolean @default(value: "true")
+}
+
+type User {
+  id: ID! @unique
+  email: String! @unique
+  password: String!
+  name: String!
+
+  addresses: [Address!]!
+  phones: [Phone!]!
+
+  orders: [Order!]!
+}
+
+type Product {
+  id: ID! @unique
+  name: String!
+  description: String
+  price: Float @default(value: "100")
+
+  tags: [String!]!
+
+  isActive: Boolean
+
+  items: [OrderItem!]!
+}
+
+type Order {
+  id: ID! @unique
+
+  billingAddress: Address! @relation(name: "BillingAddress")
+  shippingAddress: Address! @relation(name: "ShippingAddress")
+
+  items: [OrderItem!]!
+
+  subtotal: Float
+  tax: Float
+  total: Float
+
+  user: User!
+}
+
+type OrderItem {
+  id: ID! @unique
+
+  price: Float
+  quantity: Int @default(value: "1")
+
+  order: Order!
+  product: Product!
+}

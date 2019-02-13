@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "idea-shop-db": {
+      "schemaPath": "src/generated/prisma.graphql",
+      "extensions": {
+        "endpoints": {
+          "dev": {
+            "url": "https://us1.prisma.sh/public-daffodilfoot-328/idea-shop-api/dev",
+            "subscription": "wss://us1.prisma.sh/public-daffodilfoot-328/idea-shop-api/dev"
+          }
+        }
+      }
+    }
+  }
+}
